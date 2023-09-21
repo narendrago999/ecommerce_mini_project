@@ -1,0 +1,24 @@
+.cards{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    justify-content: space-between;
+}
+.details{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5vmax;
+    align-items: start;
+}
+.category{
+    position: fixed;
+}
+.productDetails{
+    position: fixed;
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 90%;
+    right: 0;
+}

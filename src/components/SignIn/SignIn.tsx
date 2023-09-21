@@ -1,8 +1,15 @@
 import React from 'react'
+import { userReq } from '../../actions/userReq'
+
+
 
 const SignIn:React.FC = () => {
-  return (
-    <div>SignIn</div>
+
+  userReq.createUser({name:"naren",email:"naren@gmail.com"})
+  return(
+    <>
+    <div>signin</div>
+    </>
   )
 }
 
