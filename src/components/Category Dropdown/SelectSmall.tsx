@@ -12,9 +12,9 @@ export default function SelectSmall() {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: '300%' }} size="small">
-      <InputLabel id="demo-select-small-label">category</InputLabel>
-      <Select
+    <FormControl  sx={{ m: 1, width:160,background:'white',borderRadius:1 }} size="small">
+      <InputLabel sx={{color:'black'}} id="demo-select-small-label">category</InputLabel>
+      <Select sx={{borderColor:'white'}}
         labelId="demo-select-small-label"
         id="demo-select-small"
         value={category}
@@ -24,7 +24,7 @@ export default function SelectSmall() {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={10}>Child</MenuItem>
+        <MenuItem value={10}>Kids</MenuItem>
         <MenuItem value={20}>Men</MenuItem>
         <MenuItem value={30}>Women</MenuItem>
       </Select>

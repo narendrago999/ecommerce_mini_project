@@ -9,6 +9,8 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import SelectSmall from '../../../components/Category Dropdown/SelectSmall';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,13 +76,18 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-        
+          <div className="category">
+        <SelectSmall />
+      </div>
+      <Link to="/signin">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       SignIn
     </Button>
+    </Link>
+    <Link to="/signup">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       SignUp
-    </Button>
+    </Button></Link>
         
         </Toolbar>
       </AppBar>

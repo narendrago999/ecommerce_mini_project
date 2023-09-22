@@ -5,10 +5,8 @@ import ProductDetails from './ProductDetails'
 const Details:React.FC = () => {
   return (
     <div className="details">
-      <div className="category">
-        <SelectSmall />
-      </div>
         <div className="productDetails">
+      <h1>Trendings</h1>
             <ProductDetails />
         </div>
     </div>

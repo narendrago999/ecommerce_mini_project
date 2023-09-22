@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import SignIn from './components/SignIn/SignIn'
 import SignUp from './components/SignUp/SignUp'
 import Home from './components/Home/Home'
-const App:React.FC = () => {
+function App() {
   return (
     <>
     <BrowserRouter>
@@ -14,7 +15,7 @@ const App:React.FC = () => {
     </Routes>
     </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

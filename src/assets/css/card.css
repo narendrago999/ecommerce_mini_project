@@ -4,21 +4,34 @@
     display: flex;
     flex-wrap: wrap;
     margin: 0;
-    justify-content: space-between;
+    justify-content: left;
 }
+
 .details{
-    display: flex;
-    justify-content: space-between;
+   
     margin-top: 5vmax;
-    align-items: start;
 }
 .category{
-    position: fixed;
+    position: relative;
 }
 .productDetails{
-    position: fixed;
+    position: relative;
     overflow: hidden;
     overflow-y: scroll;
-    width: 90%;
     right: 0;
+    top: 0;
+    width: 83.4%;
+    background-color: whitesmoke;
+    margin: auto;
+    padding: 1vmax;
+}
+.productDetails::-webkit-scrollbar{
+    width: 0;
+}
+.productDetails h1{
+    margin: 1vmax 0.5vmax;
+    color: #19105b;
+}
+.slider{
+    margin-top: 3.65vmax;
 }
