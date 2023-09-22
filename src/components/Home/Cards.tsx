@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import SingleProduct from './SingleProduct';
+import { color } from '@mui/system';
 
 export default function Cards() {
 
@@ -20,7 +21,7 @@ export default function Cards() {
 
 
   return (
-    <Card sx={{ width: 305, maxHeight:400,marginLeft:1,marginBottom:1}}>
+    <Card sx={{ width: 260, maxHeight:400,marginLeft:1,marginBottom:1}}>
       <CardMedia onClick={handleOpen}
         sx={{ height: 180,width:160,margin:'auto',marginTop:1,marginBottom:1}}
         image="https://th.bing.com/th/id/OIP.BSVbAWhbtvrl5QmMgRUKoQHaHa?pid=ImgDet&rs=1"
@@ -38,7 +39,9 @@ export default function Cards() {
         </div>
       </Modal>
         <Typography gutterBottom variant="h5" component="div" sx={{fontSize:16,marginLeft:1}} onClick={handleOpen}>
-          Denim Shirt<span style={{fontSize:'16px',marginLeft:'120px',fontWeight:'600'}}>$260</span>
+          <div className="cardtitle">
+          Denim Shirt<span style={{fontSize:'16px',fontWeight:'600'}}>$260</span>
+          </div>
         </Typography>
         {/* <Typography variant="body2" color="text.secondary">
           Lizards are a widespread group of squamate reptiles, with over 6,000
@@ -46,8 +49,10 @@ export default function Cards() {
         </Typography> */}
       </CardContent>
       <CardActions>
-        <Button size="small">Buy</Button>
-        <Button size="small">Add to Cart</Button>
+        <div className="cardbutton">
+        <Button size="small" sx={{color:'white', backgroundColor:'#19105b', '&:hover':{backgroundColor: 'pink', color:'black'}}}>Buy</Button>
+        <Button size="small"  sx={{color:'white',backgroundColor:'#19105b',margin:1, '&:hover':{backgroundColor: 'pink',color:'black'}}}>Add to Cart</Button>
+        </div>
       </CardActions>
     </Card>
   );

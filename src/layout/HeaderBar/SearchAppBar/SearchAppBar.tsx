@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import SelectSmall from '../../../components/Category Dropdown/SelectSmall';
 import { Link } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -79,6 +80,11 @@ export default function SearchAppBar() {
           <div className="category">
         <SelectSmall />
       </div>
+      <Link to="/">
+          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+      HOME
+    </Button>
+    </Link>
       <Link to="/signin">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       SignIn
@@ -87,6 +93,10 @@ export default function SearchAppBar() {
     <Link to="/signup">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       SignUp
+    </Button></Link>
+    <Link to="/cart">
+          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+      Cart <ShoppingCartIcon sx={{marginLeft:1}}/>
     </Button></Link>
         
         </Toolbar>

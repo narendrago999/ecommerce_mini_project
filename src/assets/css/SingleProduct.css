@@ -61,3 +61,14 @@
     font-weight: 600;
     margin: 0.5vmax 0.5vmax;
 }
+.description{
+    margin: 0.8vmax;
+}
+.cardbutton{
+    text-align: end;
+    width: 100%;
+}
+.cardtitle{
+    display: flex;
+    justify-content: space-between;
+}
