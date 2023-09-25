@@ -9,7 +9,7 @@ import Modal from '@mui/material/Modal';
 import SingleProduct from './SingleProduct';
 import { color } from '@mui/system';
 
-export default function Cards() {
+export default function Cards(props: any) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -40,7 +40,7 @@ export default function Cards() {
       </Modal>
         <Typography gutterBottom variant="h5" component="div" sx={{fontSize:16,marginLeft:1}} onClick={handleOpen}>
           <div className="cardtitle">
-          Denim Shirt<span style={{fontSize:'16px',fontWeight:'600'}}>$260</span>
+          {props.product.product_title}<span style={{fontSize:'16px',fontWeight:'600'}}>{props.product.product_price}</span>
           </div>
         </Typography>
         {/* <Typography variant="body2" color="text.secondary">

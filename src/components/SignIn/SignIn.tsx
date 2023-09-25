@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,10 +13,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, makeStyles, ThemeProvider } from '@mui/material/styles';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useApi } from '../../Context/ApiContext';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie'
 
 
 
@@ -25,35 +26,27 @@ const defaultTheme = createTheme();
 export default function SignIn() {
 const Navigate = useNavigate()  
   const {data, postData} = useApi()
-  React.useEffect(() => {
-    if(data.message === "userCreated"){
-      toast.success('Registration successful!', {
+  useEffect(() => {
+   
+    
+    if(data.success === true){
+      Cookies.set("auth_token",data.token,{expires:1})
+      toast.success('Login Success', {
         position: 'bottom-right', 
-        autoClose: 1000, 
+        autoClose: 1000,
       });
       setTimeout(()=>{
+        Navigate('/')
         window.location.reload()
-        Navigate('/signin')
       },800)
     }
-    if(data.message === "User Already Exists"){
-      toast.error('User Already Exists', {
+    if(data.success === false){
+      toast.success('Invalid Credential', {
         position: 'bottom-right', 
-        autoClose: 1000, 
+        autoClose: 1000,
       });
     }
-    if(data.message === "Error creating user"){
-      toast.error('Try After Some Time!!', {
-        position: 'bottom-right', 
-        autoClose: 1000, 
-      });
-    }
-    if(data.message === "All Fields are Required"){
-      toast.error('All Fields are Required', {
-        position: 'bottom-right', 
-        autoClose: 1000, 
-      });
-    }
+    
   }, [postData]);
   
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,12 +56,15 @@ const Navigate = useNavigate()
       email: data.get('email'),
       password: data.get('password'),
     }
+    console.log(user_info);
+    
     postData('http://localhost:8080/signin',user_info)
     
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

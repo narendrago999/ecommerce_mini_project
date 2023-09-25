@@ -8,7 +8,24 @@ import SignUp from '../SignUp/SignUp'
 import Cart from './Cart'
 import PriceTable from './PriceTable'
 import { ApiProvider } from '../../Context/ApiContext'
+import CartDisplay from './CartDisplay'
+import Cookies from 'js-cookie'
 const Home:React.FC = () => {
+
+  const [AuthToken,setAuthToken]= React.useState('')
+
+    React.useEffect(()=>{
+      function get_auth_token(){
+        const auth_token:string | undefined = Cookies.get('auth_token')
+        
+        if(auth_token){
+          console.log("token", auth_token);
+          setAuthToken(auth_token)
+        }
+      }
+      get_auth_token()
+    },[])
+
   return (
     <ApiProvider>
     <div className="home">
@@ -16,33 +33,13 @@ const Home:React.FC = () => {
     <div className="slider">
       <SecondHeader />
     </div>
-    {window.location.pathname==='/cart'?
-    <>
-    <div className="cart-main">
-      <h2 className='cardpagetitle'>Cart Items</h2>
-     
-      <div className="cartbox">
-    <div className="cartprice">
-    <Cart />
-    <Cart />
-    <Cart />
-    <Cart />
-    </div>
-    <div className="pricedetails">
-      <PriceTable />
-    </div>
-      </div>
-    <div className="buttoncover">
-    <button className='orderbutton'>Place Order</button>
-    </div>
-    </div>
-    </>
+    {window.location.pathname==='/cart'?AuthToken?
+    <CartDisplay/>
+    :<SignIn/>
     :<></>}
     {window.location.pathname==='/'?<><Slider /><Details /></>:<></>}
     {window.location.pathname==='/signup'?<SignUp />:<></>}
     {window.location.pathname==='/signin'?<SignIn />:<></>}
-    
-    
     </div>
     </ApiProvider>
   )

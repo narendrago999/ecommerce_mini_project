@@ -8,8 +8,9 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import SelectSmall from '../../../components/Category Dropdown/SelectSmall';
-import { Link } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Cookies from 'js-cookie';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,6 +55,30 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+const Navigate = useNavigate()
+  const [AuthToken,setAuthToken]= React.useState('')
+console.log(AuthToken);
+
+  React.useEffect(()=>{
+    function get_auth_token(){
+      const auth_token:string | undefined = Cookies.get('auth_token')
+      
+      if(auth_token){
+        console.log("token", auth_token);
+        setAuthToken(auth_token)
+      }
+    }
+    get_auth_token()
+  },[])
+  function handleLogout(){
+    Cookies.remove('auth_token')
+    Navigate('/signin')
+    window.location.reload()
+    
+  }
+
+
+
   return (
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="fixed" sx={{backgroundColor:'#19105b'}}>
@@ -83,19 +108,29 @@ export default function SearchAppBar() {
       HOME
     </Button>
     </Link>
+    {AuthToken?'':
       <Link to="/signin">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       SignIn
     </Button>
     </Link>
+}
+{AuthToken?'':
     <Link to="/signup">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       SignUp
     </Button></Link>
+}
     <Link to="/cart">
           <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
       Cart <ShoppingCartIcon sx={{marginLeft:1}}/>
     </Button></Link>
+    {AuthToken?
+    
+          <Button variant="contained" onClick={handleLogout} disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+      LogOut
+    </Button>:''
+}
         
         </Toolbar>
       </AppBar>

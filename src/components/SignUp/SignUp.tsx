@@ -42,7 +42,7 @@ useEffect(() => {
     });
   }
   if(data.message === "Email Sent"){
-    toast.error('Email Sent', {
+    toast.success('Email Sent to the given Email. Click the link to Activate Your Account', {
       position: 'bottom-right', 
       autoClose: 1000, 
     });

@@ -31,7 +31,8 @@ export function ApiProvider({ children }: ApiProviderProps) {
   const [error, setError] = useState<Error | null>(null);
 
   const postData = async (url: string,data:any) => {
-
+    console.log(url, data);
+    
     try {
       setLoading(true);
       const response = await axios.post(url,data);
@@ -42,12 +43,12 @@ export function ApiProvider({ children }: ApiProviderProps) {
       setLoading(false);
     }
   };
-  const fetchData = async (url: string,data:any) => {
+  const fetchData = async (url: string,token:any) => {
   
     try {
       setLoading(true);
-      // const response = await axios.post(url,data);
-      setData('response.data');
+      const response = await axios.get(url,{headers:{Authorization:token}});
+      setData(response.data);
       setLoading(false);
     } catch (err: any) {
       setError(err);
