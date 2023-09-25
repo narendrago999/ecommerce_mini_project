@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,34 +10,77 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ApiProvider } from '../../Context/ApiContext';
+import { useApi } from '../../Context/ApiContext';
+import Spinner from '../../SpinnerProgress/Spinner';
+import { useNavigate } from 'react-router-dom';
 const defaultTheme = createTheme();
+
+
+
 const SignUp:React.FC = () => {
+  const Navigate = useNavigate()
+
+const {data, error, postData} = useApi()
+useEffect(() => {
+  if(data.message === "userCreated"){
+    toast.success('Registration successful!', {
+      position: 'bottom-right', 
+      autoClose: 1000, 
+    });
+    setTimeout(()=>{
+      window.location.reload()
+      Navigate('/signin')
+    },800)
+  }
+  if(data.message === "User Already Exists"){
+    toast.error('User Already Exists', {
+      position: 'bottom-right', 
+      autoClose: 1000, 
+    });
+  }
+  if(data.message === "Email Sent"){
+    toast.error('Email Sent', {
+      position: 'bottom-right', 
+      autoClose: 1000, 
+    });
+  }
+  if(data.message === "Error creating user"){
+    toast.error('Try After Some Time!!', {
+      position: 'bottom-right', 
+      autoClose: 1000, 
+    });
+  }
+  if(data.message === "All Fields are Required"){
+    toast.error('All Fields are Required', {
+      position: 'bottom-right', 
+      autoClose: 1000, 
+    });
+  }
+}, [postData]);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+   
+    const formdata = new FormData(event.currentTarget);
+    
+      // Show a success toast notification
+      const data1 = {
+        first_name:formdata.get('firstname'),
+        last_name:formdata.get('lastname'),
+        user_email: formdata.get('email'),
+        password: formdata.get('password'),
+      }
+      postData('http://localhost:8080/signup',data1)
+     
   };
 
   return (
+   
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -47,8 +90,8 @@ const SignUp:React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          >
+          <Avatar sx={{ m: 1, bgcolor: '#19105b' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -59,13 +102,15 @@ const SignUp:React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="firstname"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  color='secondary'
+                 
                   autoFocus
-                />
+                  />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -73,9 +118,10 @@ const SignUp:React.FC = () => {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  name="lastName"
+                  name="lastname"
+                  color='secondary'
                   autoComplete="family-name"
-                />
+                  />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -84,8 +130,9 @@ const SignUp:React.FC = () => {
                   id="email"
                   label="Email Address"
                   name="email"
+                  color='secondary'
                   autoComplete="email"
-                />
+                  />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -94,6 +141,7 @@ const SignUp:React.FC = () => {
                   name="password"
                   label="Password"
                   type="password"
+                  color='secondary'
                   id="password"
                   autoComplete="new-password"
                 />
@@ -104,13 +152,13 @@ const SignUp:React.FC = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              sx={{ mt: 3, mb: 2, background:'#19105b','&:hover':{background:'#251A7B'} }}
+              >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link href="/signin" variant="body2" sx={{  color:'#19105b' }}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -22,18 +22,19 @@ export default function Cart() {
       <Box sx={{ display: 'flex',justifyContent:'left',alignItems:'center',width:'100%' }}>
       <CardMedia
         component="img"
-        sx={{ width: 70 ,height:150, margin:2}}
+        sx={{ width: 70 ,height:150, marginLeft:10, marginRight:3}}
         image="https://rukminim2.flixcart.com/image/224/224/ky90scw0/mobile/s/5/d/-original-imagagnfgh6ed7tp.jpeg?q=90"
         alt="Live from space album cover"
       />
      
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center',width:'100%', pl: 1, pb: 1 }}>
         
-          <div className="cartDetails">
+          <div className="cartdetails">
             <h4>Real Me 9i</h4>
             <p>4 GB Ram </p>
             <p>$200</p>
-            <Link to='/remove-cart'><button className='productremove'><DeleteIcon sx={{color:'black'}}/></button></Link>
+            
+            <div className='productremove'><Link to='/remove-cart'><DeleteIcon sx={{color:'black'}}/></Link></div>
           </div>
         </Box>
       </Box>

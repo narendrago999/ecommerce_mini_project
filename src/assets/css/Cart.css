@@ -1,16 +1,16 @@
 .cart-main{
     background-color: #f1f3f6;
+    margin: 0;
 }
 .productremove{
     padding: 0.5vmax 1vmax;
     font-size: 16px;
     color: white;
-    border: none;
-    background: none;
     outline: none;
     border-radius: 6px;
-    transform: translateX(36.3vmax);
-    cursor: pointer;
+    width: 94%;
+    text-align: end;
+
 }
 .cartprice{
     width: max-content;
@@ -43,8 +43,8 @@
     background-color: #19105b;
 }
 .cardpagetitle{
-    margin: 0.5vmax 12.2vmax;
-    width: 44%;
+    margin: 0vmax 10.48vmax 1vmax 10.48vmax;
+    width: 47.39%;
     padding: 0.5vmax 1vmax;
     color: #19105b;
     background-color: white;
@@ -53,4 +53,8 @@
     display: flex;
     justify-content: space-evenly;
     padding: 0 7vmax;
+    margin: 0;
+}
+.cartdetails{
+    width: 100%;
 }

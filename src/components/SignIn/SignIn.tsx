@@ -11,7 +11,11 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, makeStyles, ThemeProvider } from '@mui/material/styles';
+import { toast } from 'react-toastify';
+import { useApi } from '../../Context/ApiContext';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -19,13 +23,48 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+const Navigate = useNavigate()  
+  const {data, postData} = useApi()
+  React.useEffect(() => {
+    if(data.message === "userCreated"){
+      toast.success('Registration successful!', {
+        position: 'bottom-right', 
+        autoClose: 1000, 
+      });
+      setTimeout(()=>{
+        window.location.reload()
+        Navigate('/signin')
+      },800)
+    }
+    if(data.message === "User Already Exists"){
+      toast.error('User Already Exists', {
+        position: 'bottom-right', 
+        autoClose: 1000, 
+      });
+    }
+    if(data.message === "Error creating user"){
+      toast.error('Try After Some Time!!', {
+        position: 'bottom-right', 
+        autoClose: 1000, 
+      });
+    }
+    if(data.message === "All Fields are Required"){
+      toast.error('All Fields are Required', {
+        position: 'bottom-right', 
+        autoClose: 1000, 
+      });
+    }
+  }, [postData]);
+  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const user_info = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }
+    postData('http://localhost:8080/signin',user_info)
+    
   };
 
   return (
@@ -40,7 +79,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#19105b' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -55,6 +94,7 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              color='secondary'
               autoFocus
             />
             <TextField
@@ -65,6 +105,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              color='secondary'
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -75,18 +116,18 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 ,background:'#19105b','&:hover':{background:'#251A7B'}}}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotpassward" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

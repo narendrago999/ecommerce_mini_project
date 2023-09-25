@@ -3,14 +3,14 @@ import SearchAppBar from '../../layout/HeaderBar/SearchAppBar/SearchAppBar'
 import Details from './Details'
 import Slider from './Slider'
 import SecondHeader from '../../layout/HeaderBar/SecondHeader/SecondHeader'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SignIn from '../SignIn/SignIn'
 import SignUp from '../SignUp/SignUp'
 import Cart from './Cart'
 import PriceTable from './PriceTable'
+import { ApiProvider } from '../../Context/ApiContext'
 const Home:React.FC = () => {
   return (
-    <>
+    <ApiProvider>
     <div className="home">
     <SearchAppBar />
     <div className="slider">
@@ -20,6 +20,7 @@ const Home:React.FC = () => {
     <>
     <div className="cart-main">
       <h2 className='cardpagetitle'>Cart Items</h2>
+     
       <div className="cartbox">
     <div className="cartprice">
     <Cart />
@@ -43,7 +44,7 @@ const Home:React.FC = () => {
     
     
     </div>
-    </>
+    </ApiProvider>
   )
 }
 

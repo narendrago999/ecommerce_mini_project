@@ -21,7 +21,7 @@ export default function Cards() {
 
 
   return (
-    <Card sx={{ width: 260, maxHeight:400,marginLeft:1,marginBottom:1}}>
+    <Card sx={{ width: 300, maxHeight:400,marginBottom:2}}>
       <CardMedia onClick={handleOpen}
         sx={{ height: 180,width:160,margin:'auto',marginTop:1,marginBottom:1}}
         image="https://th.bing.com/th/id/OIP.BSVbAWhbtvrl5QmMgRUKoQHaHa?pid=ImgDet&rs=1"
