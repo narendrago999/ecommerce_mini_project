@@ -13,12 +13,28 @@ import { Button } from '@mui/base';
 import { Link } from 'react-router-dom';
 import "../../assets/css/Cart.css"
 import DeleteIcon from '@mui/icons-material/Delete';
+import Cookies from 'js-cookie';
 
-export default function Cart() {
+export default function Cart(props:any) {
   const theme = useTheme();
 
+  React.useEffect(()=>{
+    console.log(props.deleteResponse)
+  })
+console.log("props",props.data[0]);
+async function handleDelete(id:any){
+  const token = Cookies.get("auth_token")
+  await props.deleteData(`http://localhost:8080/delete/${id}`,token)
+  
+
+}
+
   return (
-    <Card sx={{ display: 'flex' ,width:755 , marginBottom:1}}>
+
+    <>
+     
+      
+        <Card sx={{ display: 'flex' ,width:755 , marginBottom:1}}>
       <Box sx={{ display: 'flex',justifyContent:'left',alignItems:'center',width:'100%' }}>
       <CardMedia
         component="img"
@@ -30,14 +46,21 @@ export default function Cart() {
         <Box sx={{ display: 'flex', alignItems: 'center',width:'100%', pl: 1, pb: 1 }}>
         
           <div className="cartdetails">
-            <h4>Real Me 9i</h4>
-            <p>4 GB Ram </p>
-            <p>$200</p>
+            <h4>{props.data.product_title}</h4>
+            <p>{props.data.product_price}</p>
+            <p>{props.data.product_description}</p>
             
-            <div className='productremove'><Link to='/remove-cart'><DeleteIcon sx={{color:'black'}}/></Link></div>
+            <div className='productremove'><button onClick={()=>handleDelete(props.data.id)} ><DeleteIcon sx={{color:'black'}}/></button></div>
           </div>
         </Box>
       </Box>
     </Card>
+      
+     
+      
+    </>
+
+
+    
   );
 }

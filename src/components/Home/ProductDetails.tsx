@@ -5,11 +5,19 @@ import { useApi } from '../../Context/ApiContext'
 import Cookies from 'js-cookie'
 import Spinner from '../../SpinnerProgress/Spinner'
 const ProductDetails = () => {
-  const {data, loading, error, fetchData} = useApi()
+  const {getdata, loading, error, fetchData} = useApi()
+ 
+  
   useEffect(() => {
     const auth_token:string | undefined = Cookies.get('auth_token')
+    console.log("token-suth", auth_token);
+    
     fetchData('http://localhost:8080/get-products',auth_token);
+    
   }, []);
+  console.log("data",getdata);
+  console.log("loading",loading);
+  console.log("error",error);
   
   if (loading) {
     return <Spinner/>;
@@ -23,7 +31,7 @@ const ProductDetails = () => {
   return (
     <>
     <div className="cards">
-      {data.map((product: any)=>
+      {getdata.map((product: any)=>
     <Cards product = {product} />
       )}
    
