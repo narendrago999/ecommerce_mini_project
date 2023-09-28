@@ -73,7 +73,7 @@ useEffect(() => {
         user_email: formdata.get('email'),
         password: formdata.get('password'),
       }
-      postData('http://localhost:8080/signup',data1)
+      postData(`${process.env.REACT_APP_BACKEND_URL}signup`,data1)
      
   };
 

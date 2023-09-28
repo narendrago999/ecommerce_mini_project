@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import SingleProduct from './SingleProduct';
 import { color } from '@mui/system';
+import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 export default function Cards(props: any) {
 
@@ -19,12 +21,17 @@ export default function Cards(props: any) {
     setOpen(false);
   };
 
+const handleAddToCart = (id:number) => {
+    var token = Cookies.get('auth_token')
+    props.postCartData(`${process.env.REACT_APP_BACKEND_URL}add-cart/${id}`,token,id)
+  };
 
   return (
     <Card sx={{ width: 300, maxHeight:320,marginBottom:2}}>
+       
       <CardMedia onClick={handleOpen}
         sx={{ height: 180,width:160,margin:'auto',marginTop:1,marginBottom:1}}
-        image="https://th.bing.com/th/id/OIP.BSVbAWhbtvrl5QmMgRUKoQHaHa?pid=ImgDet&rs=1"
+        image={props.product.product_image_url}
         title="green iguana"
       />
       <CardContent>
@@ -35,7 +42,7 @@ export default function Cards(props: any) {
         aria-describedby="child-modal-description"
       >
         <div className="singleproductdetails">
-       <SingleProduct />
+       <SingleProduct data={props.product}  postCartData={props.postCartData}/>
         </div>
       </Modal>
         <Typography gutterBottom variant="h5" component="div" sx={{fontSize:16,marginLeft:1}} onClick={handleOpen}>
@@ -50,8 +57,11 @@ export default function Cards(props: any) {
       </CardContent>
       <CardActions>
         <div className="cardbutton">
+        <Link to={"/order-place"} >
         <Button size="small" sx={{color:'white', backgroundColor:'#19105b', '&:hover':{backgroundColor: 'pink', color:'black'}}}>Buy</Button>
-        <Button size="small"  sx={{color:'white',backgroundColor:'#19105b',margin:1, '&:hover':{backgroundColor: 'pink',color:'black'}}}>Add to Cart</Button>
+  
+      </Link>
+        <Button onClick={()=>handleAddToCart(props.product.id)} size="small"  sx={{color:'white',backgroundColor:'#19105b',margin:1, '&:hover':{backgroundColor: 'pink',color:'black'}}}>Add to Cart</Button>
         </div>
       </CardActions>
     </Card>

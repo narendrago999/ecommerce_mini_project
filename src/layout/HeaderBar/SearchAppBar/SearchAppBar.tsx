@@ -104,30 +104,30 @@ console.log(AuthToken);
         <SelectSmall />
       </div>
       <Link to="/">
-          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500','&:hover':{backgroundColor: 'pink', color:'black'} }}>
       HOME
     </Button>
     </Link>
     {AuthToken?'':
       <Link to="/signin">
-          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500','&:hover':{backgroundColor: 'pink', color:'black'} }}>
       SignIn
     </Button>
     </Link>
 }
 {AuthToken?'':
     <Link to="/signup">
-          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500','&:hover':{backgroundColor: 'pink', color:'black'} }}>
       SignUp
     </Button></Link>
 }
     <Link to="/cart">
-          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+          <Button variant="contained" disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500','&:hover':{backgroundColor: 'pink', color:'black'} }}>
       Cart <ShoppingCartIcon sx={{marginLeft:1}}/>
     </Button></Link>
     {AuthToken?
     
-          <Button variant="contained" onClick={handleLogout} disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500' }}>
+          <Button variant="contained" onClick={handleLogout} disableElevation sx={{marginLeft:1 , marginRight:1, backgroundColor:'#19105b', border:1, borderColor: 'grey.500','&:hover':{backgroundColor: 'pink', color:'black'} }}>
       LogOut
     </Button>:''
 }

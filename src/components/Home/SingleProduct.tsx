@@ -3,13 +3,22 @@ import "../../assets/css/SingleProduct.css"
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import DetailsTable from './DetailsTable';
+import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
-const SingleProduct:React.FC = () => {
+const SingleProduct = (props:any) => {
+
+    const handleAddToCart = (id:number) => {
+        var token = Cookies.get('auth_token')
+        props.postCartData(`${process.env.REACT_APP_BACKEND_URL}add-cart/${id}`,token,id)
+      };
+
+
   return (
     <>
     <div className="singleproducts">
         <div className="image">
-            <img src="https://m.media-amazon.com/images/I/91xVY0HUECS._UX679_.jpg" alt="Image Not Found" />
+            <img src={props.data.product_image_url} alt="Image Not Found" />
         </div>
         <div className="details">
             <div className="title">
@@ -17,12 +26,12 @@ const SingleProduct:React.FC = () => {
             </div>
             <div className="rating">
             <Stack spacing={1}>
-                <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-                <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                {/* <Rating name="half-rating" defaultValue={props.data.product_rating} precision={0.5} /> */}
+                <Rating name="half-rating-read" defaultValue={props.data.product_rating} precision={0.5} readOnly />
             </Stack>
             </div>
             <div className="price">
-                <p>$200</p>
+                <p>Rs. {props.data.product_price}</p>
             </div>
             <div className="offers">
                 <div className="offer">
@@ -35,23 +44,19 @@ const SingleProduct:React.FC = () => {
                 </div>
             </div>
             <div className="detailTable">
-                <DetailsTable />
+                <DetailsTable  data = {props.data}/>
             </div>
             <div className="description">
                 <h3>About this Product</h3>
                 <ul>
-                    <li>Care Instructions: Machine Wash</li>
-                    <li>Fit Type: Regular Fit</li>
-                    <li>Style Number - CB08</li>
-                    <li>Regular Fit</li>
-                    <li>Round Neck With Half Sleeves</li>
-                    <li>Label Free For All Day Comfort</li>
-                    <li>Washcare Instruction : Gentle wash 40 Degree, Do not bleach, Do not wring, Line dry in shade, Medium iron, Do not dry clean, Wash inside out with like colors. Do not iron on label/embroidery/print</li>
+                    <li>{props.data.product_description}</li>
                 </ul>
             </div>
             <div className="button">
+            <Link to={"/order-place"} >
                 <button>Buy</button>
-                <button>Add to Cart</button>
+      </Link>
+                <button onClick={()=>handleAddToCart(props.data.id)}>Add to Cart</button>
             </div>
 
 

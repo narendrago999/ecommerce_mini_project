@@ -40,7 +40,15 @@
     border-radius: 6px;
     cursor: pointer;
     outline: none;
+    font-weight: 600;
     background-color: #19105b;
+}
+.orderbutton:hover{
+    background-color: pink;
+    color: #19105b;
+    font-weight: 600;
+    transition: all 0.3s ease;
+
 }
 .cardpagetitle{
     margin: 0vmax 10.48vmax 1vmax 10.48vmax;

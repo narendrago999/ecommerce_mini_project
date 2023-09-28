@@ -1,5 +1,4 @@
 // ApiContext.tsx
-export {}
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import axios from 'axios';
 
@@ -12,6 +11,8 @@ type ApiContextType = {
   postData: (url: string,data:any) => Promise<void>;
   fetchData: (url: string,data:any) => Promise<void>;
   deleteData: (url: string,detail:any,data:any) => Promise<void>;
+  postCartData: (url: string,data:any,id:number) => Promise<void>;
+  fetchUserData: (url: string,token:any) => Promise<void>;
 };
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -48,9 +49,36 @@ export function ApiProvider({ children }: ApiProviderProps) {
       setLoading(false);
     }
   };
+  const fetchUserData = async (url: string,token:any) => {
+    console.log(url, data);
+    
+    try {
+      setLoading(true);
+      const response = await axios.get(url,{headers:{Authorization:token}});
+      console.log(response,"responde");
+      
+      setData(response.data);
+      setLoading(false);
+    } catch (err: any) {
+      setError(err);
+      setLoading(false);
+    }
+  };
+  const postCartData = async (url: string,token:any,id:number) => {
+    console.log("adad cart",url, token);
+    
+    try {
+      setLoading(true);
+      const response = await axios.post(url,{id},{headers:{Authorization:token}});
+      setData(response.data);
+      setLoading(false);
+    } catch (err: any) {
+      setError(err);
+      setLoading(false);
+    }
+  };
+  
   const fetchData = async (url: string,token:any) => {
-  
-  
     try {
       setLoading(true);
       const response = await axios.get(url,{headers:{Authorization:token}});
@@ -62,9 +90,9 @@ export function ApiProvider({ children }: ApiProviderProps) {
       setLoading(false);
     }
   };
+
   const deleteData = async (url: string,token:any) => {
   console.log("here");
-  
     try {
       setLoading(true);
       const response = await axios.delete(url,{headers:{Authorization:token}});
@@ -78,7 +106,7 @@ export function ApiProvider({ children }: ApiProviderProps) {
   };
 
   return (
-    <ApiContext.Provider value={{ data,getdata,deleteResponse, loading, error, postData,fetchData ,deleteData}}>
+    <ApiContext.Provider value={{ data,getdata,deleteResponse, loading, error,fetchUserData, postData,fetchData,postCartData ,deleteData}}>
       {children}
     </ApiContext.Provider>
   );

@@ -6,6 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
+export default function DetailsTable(props:any) {
+  
 function createData(
   title: string,
   value: string
@@ -15,14 +18,12 @@ function createData(
 }
 
 const rows = [
-  createData('Brand', "Jockey"),
-  createData('Colour', "Assorted"),
-  createData('Fit Type', "Regular Fit"),
-  createData('Style', "Solid"),
-  createData('Neck Style', "Round Neck")
+  createData('Brand', props.data.product_brand),
+  createData('Colour', props.data.product_colour),
+  createData('Fit Type', props.data.product_fit_type),
+  createData('Style', props.data.product_style),
+  createData('Neck Style', props.data.product_neck_style)
 ];
-
-export default function DetailsTable() {
   return (
     <TableContainer  sx={{background:'none'}}>
       <Table sx={{ maxWidth: 250 }} size="small" aria-label="a dense table">

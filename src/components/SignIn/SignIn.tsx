@@ -58,7 +58,7 @@ const Navigate = useNavigate()
     }
     console.log(user_info);
     
-    postData('http://localhost:8080/signin',user_info)
+    postData(`${process.env.REACT_APP_BACKEND_URL}signin`,user_info)
     
   };
 

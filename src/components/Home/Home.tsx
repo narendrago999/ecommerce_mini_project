@@ -10,6 +10,9 @@ import PriceTable from './PriceTable'
 import { ApiProvider } from '../../Context/ApiContext'
 import CartDisplay from './CartDisplay'
 import Cookies from 'js-cookie'
+import Review from '../Checkout/Review'
+import AddressForm from '../Checkout/AddressForm'
+import Checkout from '../Checkout/Checkout'
 const Home:React.FC = () => {
 
   const [AuthToken,setAuthToken]= React.useState('')
@@ -40,6 +43,7 @@ const Home:React.FC = () => {
     {window.location.pathname==='/'?<><Slider /><Details /></>:<></>}
     {window.location.pathname==='/signup'?<SignUp />:<></>}
     {window.location.pathname==='/signin'?<SignIn />:<></>}
+    {window.location.pathname==='/order-place'?<Checkout />:<></>}
     </div>
     </ApiProvider>
   )

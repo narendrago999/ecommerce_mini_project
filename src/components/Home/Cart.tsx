@@ -10,21 +10,40 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import { Button } from '@mui/base';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../../assets/css/Cart.css"
 import DeleteIcon from '@mui/icons-material/Delete';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 export default function Cart(props:any) {
+  const Navigate = useNavigate()
   const theme = useTheme();
 
   React.useEffect(()=>{
-    console.log(props.deleteResponse)
+    if(props.deleteResponse === "Deleted Success"){
+      toast.success('Removed Successfully', {
+        position: 'bottom-right', 
+        autoClose: 1000, 
+      });
+      setTimeout(()=>{
+        window.location.reload()
+      },300)
+    }
+    if(props.deleteResponse === "Deleted Successfully"){
+      toast.success('Try Again', {
+        position: 'bottom-right', 
+        autoClose: 1000, 
+      });
+      setTimeout(()=>{
+        window.location.reload()
+      },300)
+    }
+    console.log("props data",props.deleteResponse)
   })
-console.log("props",props.data[0]);
 async function handleDelete(id:any){
   const token = Cookies.get("auth_token")
-  await props.deleteData(`http://localhost:8080/delete/${id}`,token)
+  await props.deleteData(`${process.env.REACT_APP_BACKEND_URL}delete/${id}`,token)
   
 
 }
@@ -39,7 +58,7 @@ async function handleDelete(id:any){
       <CardMedia
         component="img"
         sx={{ width: 70 ,height:150, marginLeft:10, marginRight:3}}
-        image="https://rukminim2.flixcart.com/image/224/224/ky90scw0/mobile/s/5/d/-original-imagagnfgh6ed7tp.jpeg?q=90"
+        image={props.data.product_image_url}
         alt="Live from space album cover"
       />
      

@@ -7,29 +7,47 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(
-  PRICEDETAILS: string,
-  PRICE: number,
- 
-) {
-  return { PRICEDETAILS, PRICE };
-}
 
-const rows = [
-  createData('price', 11098),
-  createData('Discount', 6407),
-  createData('Delivery Charges', 0),
-  createData('Total Amount', 11098-6407),
-  createData('Total Save', 6407),
-];
 
-export default function PriceTable() {
+export default function PriceTable(props:any) {
+
+const [Total, setTotal]= React.useState('')
+
+  React.useEffect(()=>{
+    function getTotal(data: any[]){
+      var total = 0
+      data.map((data:any)=>{
+        total += parseInt(data.product_price)
+        console.log(data.product_price);
+      })
+      setTotal(total.toString())
+    }
+    getTotal(props.data)
+  })
+  function createData(
+    PRICEDETAILS: string,
+    PRICE: number,
+   
+  ) {
+    return { PRICEDETAILS, PRICE };
+  }
+  
+  const rows = [
+    createData('price', parseInt(Total)),
+    createData('Discount', parseInt(Total)*0.1),
+    createData('Delivery Charges', 0),
+    createData('Total Amount', parseInt(Total)-parseInt(Total)*0.1),
+    createData('Total Save', parseInt(Total)*0.1),
+  ];
+  
+
+
   return (
     <TableContainer component={Paper} sx={{width:400}}>
       <Table sx={{ maxWidth: 400 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell><b>PRICE DETAILS</b></TableCell>
+          <TableRow sx={{fontWeight:'600', background:'#19105b',color:'white',width:'100%'}}>
+            <TableCell sx={{color:'white'}}><b>PRICE DETAILS</b></TableCell>
             <TableCell align="right"></TableCell>
             
           </TableRow>
@@ -38,7 +56,7 @@ export default function PriceTable() {
           {rows.map((row) => (
             <TableRow
               key={row.PRICEDETAILS}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
             >
               <TableCell component="th" scope="row">
                 <b>{row.PRICEDETAILS}</b>
